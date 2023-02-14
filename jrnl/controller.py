@@ -1,5 +1,6 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
+
 import logging
 import sys
 from typing import TYPE_CHECKING
@@ -14,8 +15,8 @@ from jrnl.config import scope_config
 from jrnl.editor import get_text_from_editor
 from jrnl.editor import get_text_from_stdin
 from jrnl.exception import JrnlException
-from jrnl.Journal import Journal
-from jrnl.Journal import open_journal
+from jrnl.journals import Journal
+from jrnl.journals import open_journal
 from jrnl.messages import Message
 from jrnl.messages import MsgStyle
 from jrnl.messages import MsgText
@@ -27,7 +28,7 @@ from jrnl.path import expand_path
 if TYPE_CHECKING:
     from argparse import Namespace
 
-    from jrnl.Entry import Entry
+    from jrnl.journals import Entry
 
 
 def run(args: "Namespace"):
@@ -88,6 +89,8 @@ def _is_write_mode(args: "Namespace", config: dict, **kwargs) -> bool:
             args.edit,
             args.change_time,
             args.excluded,
+            args.exclude_starred,
+            args.exclude_tagged,
             args.export,
             args.end_date,
             args.today_in_history,
@@ -100,6 +103,7 @@ def _is_write_mode(args: "Namespace", config: dict, **kwargs) -> bool:
             args.starred,
             args.start_date,
             args.strict,
+            args.tagged,
             args.tags,
         )
     )
@@ -269,7 +273,10 @@ def _has_search_args(args: "Namespace") -> bool:
             args.end_date,
             args.strict,
             args.starred,
+            args.tagged,
             args.excluded,
+            args.exclude_starred,
+            args.exclude_tagged,
             args.contains,
             args.limit,
         )
@@ -295,7 +302,10 @@ def _filter_journal_entries(args: "Namespace", journal: Journal, **kwargs) -> No
         end_date=args.end_date,
         strict=args.strict,
         starred=args.starred,
+        tagged=args.tagged,
         exclude=args.excluded,
+        exclude_starred=args.exclude_starred,
+        exclude_tagged=args.exclude_tagged,
         contains=args.contains,
     )
     journal.limit(args.limit)

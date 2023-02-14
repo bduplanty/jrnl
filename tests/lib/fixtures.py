@@ -1,4 +1,4 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
 
 import os
@@ -144,7 +144,7 @@ def mock_overrides(config_in_memory):
 
     return {
         "overrides": lambda: patch(
-            "jrnl.jrnl.apply_overrides", side_effect=my_overrides
+            "jrnl.controller.apply_overrides", side_effect=my_overrides
         )
     }
 

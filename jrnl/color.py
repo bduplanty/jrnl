@@ -1,4 +1,4 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
 
 import re
@@ -11,7 +11,7 @@ import colorama
 from jrnl.os_compat import on_windows
 
 if TYPE_CHECKING:
-    from jrnl.Entry import Entry
+    from jrnl.journals import Entry
 
 if on_windows():
     colorama.init()

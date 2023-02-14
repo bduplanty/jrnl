@@ -1,4 +1,4 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
 
 import codecs
@@ -6,11 +6,12 @@ import fnmatch
 import os
 from typing import TYPE_CHECKING
 
-from jrnl import Journal
 from jrnl import time
 
+from .Journal import Journal
+
 if TYPE_CHECKING:
-    from jrnl.Entry import Entry
+    from jrnl.journals import Entry
 
 def get_files(journal_config: str, ext_config: str) -> list[str]:
     """Searches through sub directories starting with journal_config and find all text files"""
@@ -21,7 +22,7 @@ def get_files(journal_config: str, ext_config: str) -> list[str]:
     return filenames
 
 
-class Folder(Journal.Journal):
+class Folder(Journal):
     """A Journal handling multiple files in a folder"""
     def __init__(self, name: str = "default", **kwargs):
         self.entries = []

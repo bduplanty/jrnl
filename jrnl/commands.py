@@ -1,4 +1,4 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
 
 """
@@ -14,6 +14,7 @@ run.
 Also, please note that all (non-builtin) imports should be scoped to each function to
 avoid any possible overhead for these standalone commands.
 """
+
 import argparse
 import logging
 import platform
@@ -27,7 +28,7 @@ from jrnl.messages import MsgText
 from jrnl.output import print_msg
 
 
-def preconfig_diagnostic(_):
+def preconfig_diagnostic(_) -> None:
     from jrnl import __title__
     from jrnl import __version__
 
@@ -38,7 +39,7 @@ def preconfig_diagnostic(_):
     )
 
 
-def preconfig_version(_):
+def preconfig_version(_) -> None:
     import textwrap
 
     from jrnl import __title__
@@ -47,7 +48,7 @@ def preconfig_version(_):
     output = f"""
     {__title__} {__version__}
 
-    Copyright © 2012-2022 jrnl contributors
+    Copyright © 2012-2023 jrnl contributors
 
     This is free software, and you are welcome to redistribute it under certain
     conditions; for details, see: https://www.gnu.org/licenses/gpl-3.0.html
@@ -68,7 +69,7 @@ def postconfig_list(args: argparse.Namespace, config: dict, **_) -> int:
 
 @cmd_requires_valid_journal_name
 def postconfig_import(args: argparse.Namespace, config: dict, **_) -> int:
-    from jrnl.Journal import open_journal
+    from jrnl.journals import open_journal
     from jrnl.plugins import get_importer
 
     # Requires opening the journal
@@ -89,7 +90,7 @@ def postconfig_encrypt(
     """
     from jrnl.config import update_config
     from jrnl.install import save_config
-    from jrnl.Journal import open_journal
+    from jrnl.journals import open_journal
 
     # Open the journal
     journal = open_journal(args.journal_name, config)
@@ -144,7 +145,7 @@ def postconfig_decrypt(
     """Decrypts into new file. If filename is not set, we encrypt the journal file itself."""
     from jrnl.config import update_config
     from jrnl.install import save_config
-    from jrnl.Journal import open_journal
+    from jrnl.journals import open_journal
 
     journal = open_journal(args.journal_name, config)
 

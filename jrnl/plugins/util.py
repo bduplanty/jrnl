@@ -1,10 +1,10 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from jrnl.Journal import Journal
+    from jrnl.journals import Journal
 
 
 def get_tags_count(journal: "Journal") -> set[tuple[int, str]]:

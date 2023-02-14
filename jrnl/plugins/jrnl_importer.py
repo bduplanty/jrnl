@@ -1,4 +1,4 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
 
 import sys
@@ -11,7 +11,7 @@ from jrnl.messages import MsgText
 from jrnl.output import print_msg
 
 if TYPE_CHECKING:
-    from jrnl.Journal import Journal
+    from jrnl.journals import Journal
 
 
 class JRNLImporter:

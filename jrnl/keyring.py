@@ -1,5 +1,6 @@
-# Copyright © 2012-2022 jrnl contributors
+# Copyright © 2012-2023 jrnl contributors
 # License: https://www.gnu.org/licenses/gpl-3.0.html
+
 import keyring
 
 from jrnl.messages import Message
@@ -17,7 +18,7 @@ def get_keyring_password(journal_name: str = "default") -> str | None:
         return None
 
 
-def set_keyring_password(password: str, journal_name: str = "default"):
+def set_keyring_password(password: str, journal_name: str = "default") -> None:
     try:
         return keyring.set_password("jrnl", journal_name, password)
     except keyring.errors.KeyringError as e:
