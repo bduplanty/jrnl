@@ -12,19 +12,17 @@ from jrnl import time
 if TYPE_CHECKING:
     from jrnl.Entry import Entry
 
-
-def get_files(journal_config: str) -> list[str]:
+def get_files(journal_config: str, ext_config: str) -> list[str]:
     """Searches through sub directories starting with journal_config and find all text files"""
     filenames = []
     for root, dirnames, f in os.walk(journal_config):
-        for filename in fnmatch.filter(f, "*.txt"):
+        for filename in fnmatch.filter(f, "*" + ext_config):  # second item was "*.txt"
             filenames.append(os.path.join(root, filename))
     return filenames
 
 
 class Folder(Journal.Journal):
     """A Journal handling multiple files in a folder"""
-
     def __init__(self, name: str = "default", **kwargs):
         self.entries = []
         self._diff_entry_dates = []
@@ -34,7 +32,7 @@ class Folder(Journal.Journal):
     def open(self) -> "Folder":
         filenames = []
         self.entries = []
-        filenames = get_files(self.config["journal"])
+        filenames = get_files(self.config["journal"], self.config["extension"])
         for filename in filenames:
             with codecs.open(filename, "r", "utf-8") as f:
                 journal = f.read()
@@ -58,13 +56,22 @@ class Folder(Journal.Journal):
         # For every date that had a modified entry, write to a file
         for d in modified_dates:
             write_entries = []
-            filename = os.path.join(
-                self.config["journal"],
-                d.strftime("%Y"),
-                d.strftime("%m"),
-                d.strftime("%d") + ".txt",
-            )
+            # flat diectory structure or tree type
+            if self.config["notree"]:
+                filename = os.path.join(
+                    self.config["journal"],
+                    d.strftime("%Y-%m-%d") + self.config["extension"], 
+                )
+            else:
+                # creates 2022/11/28.txt structure
+                filename = os.path.join(
+                    self.config["journal"],
+                    d.strftime("%Y"),
+                    d.strftime("%m"),
+                    d.strftime("%d") + self.config["extension"],    # was ".txt",
+                )
             dirname = os.path.dirname(filename)
+           
             # create directory if it doesn't exist
             if not os.path.exists(dirname):
                 os.makedirs(dirname)
@@ -80,7 +87,7 @@ class Folder(Journal.Journal):
                 journal_file.write(journal)
         # look for and delete empty files
         filenames = []
-        filenames = get_files(self.config["journal"])
+        filenames = get_files(self.config["journal"], self.config["extension"])
         for filename in filenames:
             if os.stat(filename).st_size <= 0:
                 os.remove(filename)

@@ -112,6 +112,8 @@ def get_default_config() -> dict[str, Any]:
             "body": "none",
             "tags": "none",
         },
+        "notree": False,
+        "extension": ".txt",
     }
 
 
