@@ -15,7 +15,9 @@
 
 **Fixed bugs:**
 
+- Templated entries should not be saved if the raw text is identical to the original template  [\#1652](https://github.com/jrnl-org/jrnl/issues/1652)
 - jrnl does not update version key in config file [\#1638](https://github.com/jrnl-org/jrnl/issues/1638)
+- Don't save templated journal entries if the received raw text is the same as the template itself [\#1653](https://github.com/jrnl-org/jrnl/pull/1653) ([Briscoooe](https://github.com/Briscoooe))
 - Add tag to XML file when edited DayOne entry and is searchable afterward [\#1648](https://github.com/jrnl-org/jrnl/pull/1648) ([jonakeys](https://github.com/jonakeys))
 - Update version key in config file after version changes [\#1646](https://github.com/jrnl-org/jrnl/pull/1646) ([jonakeys](https://github.com/jonakeys))
 
@@ -33,6 +35,7 @@
 **Documentation:**
 
 - Documentation Change [\#1651](https://github.com/jrnl-org/jrnl/issues/1651)
+- Update documentation on temporary files naming [\#1673](https://github.com/jrnl-org/jrnl/pull/1673) ([giuseppedandrea](https://github.com/giuseppedandrea))
 - Update docs to include time and title in arguments with `--edit` [\#1657](https://github.com/jrnl-org/jrnl/pull/1657) ([pconrad-fb](https://github.com/pconrad-fb))
 - Fix markup in "Advanced Usage" doc [\#1655](https://github.com/jrnl-org/jrnl/pull/1655) ([multani](https://github.com/multani))
 - Remove Windows 7 known issue since Windows 7 is no longer supported [\#1636](https://github.com/jrnl-org/jrnl/pull/1636) ([micahellison](https://github.com/micahellison))
